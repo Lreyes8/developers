@@ -1,0 +1,6 @@
+/.idea
+/vendor/
+/var/cache/
+/logs/*
+!/logs/README.md
+composer.lock

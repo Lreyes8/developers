@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+{% block body %}
+    <br><br>
+    <form action="" method="post" class="form-inline" role="form">
+
+        <div class="form-group">
+            <label class="sr-only" for="">label</label>
+            <input type="email" class="form-control" name="txtSearch" id="txtSearch" placeholder="typing email ...">
+        </div>
+        <button type="button" class="btn btn-primary btnSearch">Search</button>
+    </form>
+
+    <div class="clearfix"></div>
+    <br>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        (function () {
+            getData('/employees.json', []);
+
+            function getData(url, params) {
+                $.getJSON(url, params)
+                    .done(function (data) {
+                        $('table tbody').html('');
+                        $.each(data, function (key, value) {
+                            $('table tbody').prepend(
+                                '<tr><td>' + value.name + '</td>' +
+                                '<td>' + value.email + '</td>' +
+                                '<td>' + value.position + '</td>' +
+                                '<td>' + value.salary + '</td>' +
+                                '<td><button type="button" class="btn btn-primary btn-sm show" data-id="' + value.id + '">Mas detales</button></tr>'
+                            );
+                        });
+
+                    });
+            }
+
+            $(".btnSearch").on('click', function (e) {
+
+                var email = $("#txtSearch").val();
+
+                if (email.length > 0) {
+                    getData('{{ path_for('employee_searchbyemail') }}', {'email' : email});
+                } else {
+                    getData('/employees.json', []);
+                }
+            });
+
+            $('.table, body').on('click', '.show', function (e) {
+                var url = '{{ path_for('employee_detail', {'id': 'employee_id'}) }}';
+                var id = $(this).data('id');
+                window.location.href = url.replace('employee_id', id);
+            });
+
+        })();
+    </script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+{% block body %}
+    <br><br>
+    <div class="clearfix">
+        <a href="{{ path_for('employee_index') }}" class="btn btn-primary">Back List</a>
+    </div>
+    <br><br>
+    <div class="well well-sm">
+        <strong>NAME:</strong> {{ employee.name }}
+    </div>
+    <div class="well well-sm">
+        <strong>EMAIL:</strong> {{ employee.email }}
+    </div>
+    <div class="well well-sm">
+        <strong>PHONE:</strong> {{ employee.phone }}
+    </div>
+    <div class="well well-sm">
+        <strong>ADDRESS:</strong> {{ employee.address }}
+    </div>
+    <div class="well well-sm">
+        <strong>SALARY:</strong> {{ employee.salary }}
+    </div>
+    <div class="well well-sm">
+        <strong>skills :</strong> <br>
+        <ul>
+            {% for skill in employee.skills %}
+                <li>{{ skill.skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        (function () {
+        })();
+    </script>
+{% endblock %}

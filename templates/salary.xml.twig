@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employees>
+    {% for employee in employees %}
+        <employee>
+            <id>{{ employee.id }}</id>
+            <name>{{ employee.name }}</name>
+            <email>{{ employee.email }}</email>
+            <phone>{{ employee.phone }}</phone>
+            <address>{{ employee.address }}</address>
+            <position>{{ employee.position }}</position>
+            <salary>{{ employee.salary }}</salary>
+            <skills>
+                {% for skill in employee.skills %}
+                    <skill>{{ skill.skill }}</skill>
+                {% endfor %}
+            </skills>
+        </employee>
+    {% endfor %}
+</employees>
